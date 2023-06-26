@@ -16,4 +16,12 @@ app.use('/todos', itemRoutes)
 mongoose.connect(process.env.MONGODB_URL)
 // LISTEN ON PORT 4000
 // frontend is running on port 3000
+.then(() => {
 
+    app.listen(4000, () => {
+
+        console.log('listening on port 4000, connected to db')
+
+    })
+
+})

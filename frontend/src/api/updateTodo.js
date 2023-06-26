@@ -4,11 +4,16 @@ export const updateTodo = async (todo) => {
     
     const response = await fetch(`${API_URL}/todos/items/${todo._id}`, {
         // what method?
+        method: 'PATCH',
       
         // type of content?
+        headers: {
+            'content-type': 'application/json'
+        },
        
         // body updated the "text" in your model with the text you sent as parameter 
-        
+        //send todo through body 
+        body: JSON.stringify(todo)
     })
     const json = await response.json()
     return json

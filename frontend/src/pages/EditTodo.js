@@ -2,36 +2,51 @@ import { useParams } from "react-router-dom"
 import { useState, useEffect } from 'react'
 import { getTodo } from "../api/getTodo"
 import { updateTodo } from "../api/updateTodo"
+
 const EditTodo = () => {
+    const { id } = useParams();
 
-    const { id } = useParams()
-    const [toUpdate, setToUpdate] = useState('')
+    // This useState holds the todo to update
+    const [todo, setTodo] = useState('')
     const [userInput, setUserInput] = useState('')
-
-    const submitHandler = async () => {
-        let obj = {
-            _id: toUpdate._id,
-            text: userInput
-        }
-
-        alert('edited item')
-    }
 
     useEffect(() => {
         const fetchTodo = async () => {
-            let data = await getTodo(id)
-            setToUpdate(data)
+            const data = await getTodo(id)
+            setTodo(data)
         }
         fetchTodo()
     },[])
+
+    const onChangeText = (event) => {
+        setUserInput(event.target.value)
+    }
+
+    const onUpdateTodo = async (e) => {
+        e.preventDefault();
+        
+        const todoToUpdate = {
+            ...todo,
+            text: userInput
+        }
+        setTodo(todoToUpdate);
+        await updateTodo(todoToUpdate)
+        alert('edited item')
+    }
+
     return (
         <div>
-            <h1>edit</h1>
-            <h2>{toUpdate.text}</h2>
-            <input 
-                onChange={() => {}}
+            <h1>Edit</h1>
+            <h2>{todo.text}</h2>
+
+            <form onSubmit={onUpdateTodo}>
+            <input
+            value={userInput}
+            onChange={onChangeText}
             />
-            <button onClick={submitHandler}>submit</button>
+            <button type="submit" >Update Todo</button>
+            </form>
+     
         </div>
     )
 }

@@ -6,9 +6,8 @@ const itemsController = require('../controllers/items')
 // the '/items' route will run the getTodos controller
 // which will fetch the data from your database
 router.get('/items', itemsController.getTodos)
-router.get('/item/:id', itemsController.getTodo)
-router.post()
-router.patch()
-router.delete()
+router.get('/items/:id', itemsController.getTodo)
+router.post('/items', itemsController.createTodo)
+router.patch('/items/:id', itemsController.editTodo)
+router.delete('/items/:id', itemsController.deleteTodo)
 module.exports = router
-

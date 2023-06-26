@@ -15,12 +15,12 @@ const App = () => {
             element={<Home />}
           />
           <Route
-            path='/'
+            path='/add-todo'
             element={<AddTodo />}
           />
           <Route
             // dynamic :id to create custom route
-            path='/'
+            path='/:id'
             element={<EditTodo />}
           />
         </Routes>
